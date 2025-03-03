@@ -1,5 +1,10 @@
 import math
 import time
+import matplotlib.pyplot as plt
+
+nations = []
+counts  = []
+colors  = ["lightcoral", "lightyellow", "yellowgreen", "lightblue", "mediumpurple"]
 
 start = time.time()
 
@@ -61,7 +66,17 @@ for i in range(len(target_ip_arr)):
 
 sorted_nation_ip_cnt = sorted(nation_ip_cnt, key= lambda x: nation_ip_cnt[x], reverse=True)
 for i in range(5):
+    nations.append("%d.%s(%d)" % (i+1, sorted_nation_ip_cnt[i], nation_ip_cnt[sorted_nation_ip_cnt[i]]))
+    counts.append(nation_ip_cnt[sorted_nation_ip_cnt[i]])
     print("%d번째 유입량이 많은 국가코드: %s, 유입량: %d건" %(i+1, sorted_nation_ip_cnt[i], nation_ip_cnt[sorted_nation_ip_cnt[i]]))
     
 end = time.time()
 print("총 실행시간은 %.2f초" % (end - start))
+
+plt.pie(counts,
+        labels=nations,
+        colors=colors,
+        autopct='%.2f%%',
+        shadow=True,
+        textprops={'fontsize': 10})
+plt.show()
